@@ -63,7 +63,7 @@ case "$DISTRO" in
       ;;
     arch)
       deps="$deps g++ mkfontscale mkfontdir bdftopcf xsltproc java"
-      deps_pkg="$deps_pkg g++ xorg-mkfontscale xorg-mkfontdir xorg-bdftopcf libxslt java-runtime-common"
+      deps_pkg="$deps_pkg g++ xorg-mkfontscale xorg-mkfontdir xorg-bdftopcf libxslt java-runtime-common jdk8-openjdk"
       ;;
     opensuse)
       deps="$deps g++ mkfontscale mkfontdir bdftopcf xsltproc java"
@@ -78,7 +78,14 @@ esac
 
 if ! test_libjson-perl; then
   files="$files perl/JSON.pm"
-  files_pkg="$files_pkg libjson-perl"
+  case "$DISTRO" in
+    arch)
+      files_pkg="$files_pkg perl-json"
+      ;;
+    *)
+      files_pkg="$files_pkg libjson-perl"
+      ;;
+    esac
 fi
 
 # project specific dependencies
